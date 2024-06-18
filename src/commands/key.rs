@@ -1,4 +1,5 @@
 use std::{fs, path::PathBuf};
+use base64::{engine::general_purpose, Engine as _};
 
 use rand::Rng;
 
@@ -11,8 +12,9 @@ pub fn run_key(key: &str) {
     let key_path_buf = PathBuf::from(key_path);
 
     if key == "" {
-        let key = generate_key();
-        fs::write(&key_path_buf, key).expect("Unable to write key");
+        let output = general_purpose::STANDARD.encode(generate_key());
+
+        fs::write(&key_path_buf, output).expect("Unable to write key");
     } else {
         fs::write(&key_path_buf, key).expect("Unable to write key");
     }

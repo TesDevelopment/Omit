@@ -18,7 +18,7 @@ fn main() {
         return;
     }
 
-    if !PathBuf::from("/.omit").exists() {
+    if !PathBuf::from(".omit").exists() {
         fs::create_dir(".omit").expect("Unable to create .omit directory");
     }
 
@@ -55,6 +55,8 @@ fn main() {
         "ensure" => commands::ensure::run_ensure(),
 
         "pull" => commands::pull::run_pull(),
+
+        "commit" => commands::commit::run_commit(),
         
         _ => commands::default::run_default(subcommand),
     }

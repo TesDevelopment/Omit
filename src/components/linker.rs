@@ -30,10 +30,23 @@ pub fn write_linker(linker: LinkerPage) -> Result<(), std::io::Error> {
 }
 
 pub fn read_linker() -> Result<LinkerPage, std::io::Error> {
-    let linker_file = std::fs::read_to_string(".omit/linker.json")?;
+    let linker_file = std::fs::read_to_string(".omit/linker.json");
 
-    let linker: LinkerPage = serde_json::from_str(&linker_file)?;
-    Ok(linker)
+    match linker_file {
+        Err(_) => {
+            let linker = LinkerPage {
+                linked_objects: Vec::new(),
+            };
+            write_linker(linker.clone())?;
+            return Ok(linker);
+        }
+        file => {
+            let linker: LinkerPage = serde_json::from_str(&file.unwrap())?;
+            Ok(linker)
+        }
+    }
+
+    
 }
 
 pub fn read_linker_raw() -> String {

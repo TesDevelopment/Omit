@@ -30,7 +30,7 @@ pub fn run_default(subcommand: &str) {
 
             match encryption_key {
                 Ok(encryption_key) => {
-                    let encrypted_content = components::key::encrypt_file(file_contents, encryption_key).expect("Unable to encrypt file");
+                    let encrypted_content = components::key::encrypt_file(file_contents, &encryption_key).expect("Unable to encrypt file");
 
                     let linker_page = read_linker().expect("Unable to read linker file");
 
