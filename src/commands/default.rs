@@ -1,6 +1,6 @@
 use std::{env, fs, path::PathBuf};
 
-use crate::components::{self, linker::read_linker};
+use crate::components::{self, linker::{read_linker, write_linker, LinkedObject, LinkerPage}};
 
 pub fn run_default(subcommand: &str) {
     let mut path_buf = PathBuf::from(subcommand);
@@ -53,9 +53,10 @@ pub fn run_default(subcommand: &str) {
 
                             let encrypted_path = format!(".omit/{}", generated_identifier);
                             let encrypted_path_buf = PathBuf::from(encrypted_path);
-                            fs::write(encrypted_path_buf, encrypted_content).expect("Unable to write encrypted file");
+                            fs::write(encrypted_path_buf, &encrypted_content).expect("Unable to write encrypted file");
 
-                            linked_objects.push(components::linker::LinkedObject::new(generated_identifier, path_str.to_string()));
+                            linked_objects.push(components::linker::LinkedObject::new(generated_identifier, path_str.to_string(), encrypted_content[0..9].to_string()));
+                            write_linker(LinkerPage { linked_objects }).expect("Unable to write linker file");
                         }
                     }
 

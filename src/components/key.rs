@@ -24,7 +24,7 @@ pub fn get_key() -> Result<String, io::Error> {
     }
 }
 
-pub fn decrypt_file(file_contents: String, encryption_key: String) -> Result<String, io::Error> {
+pub fn decrypt_file(file_contents: String, encryption_key: &String) -> Result<String, io::Error> {
     let encrypted_content = aes_dec_ecb(file_contents.as_bytes(), encryption_key.as_bytes(), Some("PKCS7"));
 
     Ok(String::from_utf8(encrypted_content.unwrap()).unwrap())

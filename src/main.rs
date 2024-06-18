@@ -53,6 +53,8 @@ fn main() {
         },
 
         "ensure" => commands::ensure::run_ensure(),
+
+        "pull" => commands::pull::run_pull(),
         
         _ => commands::default::run_default(subcommand),
     }

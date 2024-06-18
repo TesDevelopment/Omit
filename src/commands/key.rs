@@ -7,7 +7,7 @@ fn generate_key() ->  [u8; 32]{
 }
 
 pub fn run_key(key: &str) {
-    let key_path = ".omit/key";
+    let key_path = ".omit/.omit_key";
     let key_path_buf = PathBuf::from(key_path);
 
     if key == "" {

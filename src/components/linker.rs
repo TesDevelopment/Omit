@@ -10,17 +10,23 @@ pub struct LinkerPage {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct LinkedObject {
     pub identifier: String,
-    pub path: String
+    pub path: String,
+    pub signiture: String,
 }
 
 impl LinkedObject {
-    pub fn new(identifier: String, path: String) -> LinkedObject {
+    pub fn new(identifier: String, path: String,signiture: String) -> LinkedObject {
         LinkedObject {
             identifier,
-            path
+            path,
+            signiture
         }
     }
 
+}
+pub fn write_linker(linker: LinkerPage) -> Result<(), std::io::Error> {
+    let linker_file = serde_json::to_string(&linker)?;
+    std::fs::write(".omit/linker.json", linker_file)
 }
 
 pub fn read_linker() -> Result<LinkerPage, std::io::Error> {
