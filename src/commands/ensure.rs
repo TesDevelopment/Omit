@@ -18,7 +18,11 @@ pub fn run_ensure() {
 
     let ignore_contents = read_to_string(".gitignore").expect("Unable to read .gitignore");
     let to_strip = std::env::current_dir().unwrap();
-    
+
+    if !ignore_contents.contains(".omit/.omit_key") {
+        write_buffer.push_str("\n.omit/.omit_key");
+    }
+
     for linked_object in linker.linked_objects {
         if ignore_contents.contains(&linked_object.path) {
             println!("Skipping: {:?}", linked_object.path);
