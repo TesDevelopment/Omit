@@ -1,5 +1,13 @@
 use std::{env, fs, path::PathBuf};
+use soft_aes::aes::{aes_enc_ecb, aes_dec_ecb};
 
+mod components;
+/*
+fn get_random_key32() ->  [u8; 32]{
+    let mut arr = [0u8; 32];
+    thread_rng().try_fill(&mut arr[..]).expect("Ooops!");
+    return arr;
+} */
 fn main() {
     let args = env::args().collect::<Vec<String>>();
 
@@ -14,7 +22,7 @@ fn main() {
         "help" => {
             println!("!! Omit is a program built for integration into your git pipline, bin installation is required for that use case !!");
             println!("omit pull: Decrypts the secrets and writes them to the file system (Automatically done on git pull if hooks are installed)");
-            println!("omit commit: Encrypts secrets and writes them to the .omit file (Automatically done on git commit if hooks are installed)");
+            println!("omit commit: Encrypts secrets and writes them to the .omit directory (Automatically done on git commit if hooks are installed)");
 
             println!("omit ensure: Writes all secrets to your gitignore file");
             println!("omit help: Displays this message");
@@ -48,28 +56,19 @@ fn main() {
 
                     let file_contents = fs::read_to_string(&path_buf).expect("Unable to read file");
                     
-                    let mut dot_omit = env::current_dir().unwrap();
-                    dot_omit.push("/.omit");
+                    let encryption_key = components::key::get_key();
 
-                    match dot_omit.try_exists() {
-                        Ok(exists) => {
-                            if !exists {
-                                fs::create_dir(&dot_omit).expect("Unable to create .omit directory");
-                                fs::write(dot_omit.join("/.omit"), "").expect("Couldn't write to .omit file");
-                                
-                                eprintln!("No key found, please run 'omit key' to generate a key");
-                                return;
-                            }
+                    match encryption_key {
+                        Ok(encryption_key) => {
+                            let encrypted_content = components::key::encrypt_file(file_contents, encryption_key).expect("Unable to encrypt file");
+
+                            fs::wri
                         },
-                        Err(_) => {
-                            eprintln!("Couldn't identify the .omit folder.");
-                            return;
+                        Err(e) => {
+                            eprintln!("{}", e);
                         }
+                    
                     }
-
-                    let encryption_key = fs::read_to_string(dot_omit.join("/.omit_key")).expect("Couldn't read key from .omit_key file");
-
-                    // TODO: Encrypt the file contents
                 },
                 Err(_) => {
                     eprintln!("Expected subcommand or file, found '{}' instead", subcommand);
