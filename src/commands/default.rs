@@ -60,6 +60,9 @@ pub fn run_default(subcommand: &str) {
                         }
                     }
 
+                    println!("Running ensure");
+                    crate::commands::ensure::run_ensure();
+
                     
                 },
                 Err(e) => {
