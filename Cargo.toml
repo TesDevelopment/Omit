@@ -6,8 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+cuid = "1.3.2"
 rand = "0.8.5"
 rng = "0.1.0"
-serde = "1.0.203"
-serde_json = { version = "1.0.117", features = ["derive"] }
+serde = { version = "1.0.203", features = ["derive"] }
+serde_json = "1.0.117"
 soft-aes = "0.2.2"

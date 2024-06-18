@@ -1,7 +1,9 @@
 use std::{env, fs, path::PathBuf};
+use components::linker::read_linker;
 use soft_aes::aes::{aes_enc_ecb, aes_dec_ecb};
 
 mod components;
+mod commands;
 /*
 fn get_random_key32() ->  [u8; 32]{
     let mut arr = [0u8; 32];
@@ -14,6 +16,10 @@ fn main() {
     if args.len() < 2 {
         println!("Usage: omit <command>, use omit help for more information");
         return;
+    }
+
+    if !PathBuf::from("/.omit").exists() {
+        fs::create_dir(".omit").expect("Unable to create .omit directory");
     }
 
     let subcommand = &args[1];
@@ -33,47 +39,21 @@ fn main() {
 
             println!("omit <file_path>");
         },
-        
-        _ => {
-            let mut path_buf = PathBuf::from(subcommand);
 
-            if path_buf.is_relative() {
-                path_buf = env::current_dir().unwrap().join(path_buf);
-            }
-
-            match path_buf.try_exists() {
-                Ok(exists) => {
-
-                    if !exists {
-                        eprintln!("Expected subcommand or file, found '{}' instead", subcommand);
-                        return;
-                    }
-
-                    if path_buf.is_dir() {
-                        eprintln!("Expected subcommand or file, found '{}' instead", subcommand);
-                        return;
-                    }
-
-                    let file_contents = fs::read_to_string(&path_buf).expect("Unable to read file");
-                    
-                    let encryption_key = components::key::get_key();
-
-                    match encryption_key {
-                        Ok(encryption_key) => {
-                            let encrypted_content = components::key::encrypt_file(file_contents, encryption_key).expect("Unable to encrypt file");
-
-                            fs::wri
-                        },
-                        Err(e) => {
-                            eprintln!("{}", e);
-                        }
-                    
-                    }
-                },
-                Err(_) => {
-                    eprintln!("Expected subcommand or file, found '{}' instead", subcommand);
-                }
+        "key" => {
+            if args.len() < 3 {
+                commands::key::run_key("");
+            } else {
+                commands::key::run_key(&args[2]);
             }
         },
+
+        "version" => {
+            println!("Omit version 0.1.0");
+        },
+
+        "ensure" => commands::ensure::run_ensure(),
+        
+        _ => commands::default::run_default(subcommand),
     }
 }
