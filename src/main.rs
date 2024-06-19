@@ -48,7 +48,7 @@ fn main() {
         },
 
         "version" => {
-            println!("Omit version 0.2.0");
+            println!("Omit version 1.0.0");
         },
 
         "ensure" => commands::ensure::run_ensure(),
