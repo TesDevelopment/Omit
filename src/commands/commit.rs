@@ -32,8 +32,8 @@ pub fn run_commit() {
 
     if !output.status.success() {
         let error_message = String::from_utf8_lossy(&output.stderr);
-        println!("Command failed with error: {}", error_message);
+        println!("Failed to stage omit files, you're modified secret's won't be commited...: {}", error_message);
     }
 
-    println!("Commit complete");
+    println!("Omit Commit complete");
 }

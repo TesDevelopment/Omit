@@ -9,8 +9,6 @@ pub fn run_default(subcommand: &str) {
         path_buf = env::current_dir().unwrap().join(path_buf);
     }
 
-
-    println!("{:?}", path_buf);
     match path_buf.try_exists() {
         Ok(exists) => {
 
@@ -60,7 +58,7 @@ pub fn run_default(subcommand: &str) {
                         }
                     }
 
-                    println!("Running ensure");
+                    println!("Ensuring all secrets...");
                     crate::commands::ensure::run_ensure();
 
                     

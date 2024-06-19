@@ -8,8 +8,6 @@ pub fn get_key() -> Result<Vec<u8>, io::Error> {
     let mut dot_omit = std::env::current_dir()?;
     dot_omit.push(".omit");
 
-    println!("{:?}", dot_omit);
-
     match dot_omit.try_exists() {
         Err(e) => Err(e),
 
@@ -20,7 +18,6 @@ pub fn get_key() -> Result<Vec<u8>, io::Error> {
 
             dot_omit.push(".omit_key");
 
-            println!("{:?}", dot_omit);
             let encryption_key = general_purpose::STANDARD.decode(std::fs::read_to_string(dot_omit)?).unwrap();
 
             Ok(encryption_key)

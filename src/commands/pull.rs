@@ -7,7 +7,6 @@ pub fn run_pull() {
     let encryption_key = crate::components::key::get_key().unwrap();
 
     for linked_object in linker.linked_objects {
-        println!("Pulling: {:?}", linked_object.identifier);
         let mut path = PathBuf::from(".omit");
         path.push(&linked_object.identifier);
 
@@ -20,9 +19,8 @@ pub fn run_pull() {
 
         let decrypted = decrypt_file(file, &encryption_key).unwrap();
 
-        println!("Pulled: {:?}", linked_object.identifier);
         std::fs::write(&linked_object.path, decrypted).unwrap();
     }
 
-    println!("Pull complete");
+    println!("Omit Pull complete");
 }

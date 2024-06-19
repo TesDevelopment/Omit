@@ -25,7 +25,6 @@ pub fn run_ensure() {
 
     for linked_object in linker.linked_objects {
         if ignore_contents.contains(&linked_object.path) {
-            println!("Skipping: {:?}", linked_object.path);
             continue;
         }
 
@@ -33,6 +32,6 @@ pub fn run_ensure() {
         write_buffer.push_str(&linked_object.path.strip_prefix(to_strip.to_str().unwrap()).unwrap());
     }
 
-    println!("Writing to .gitignore: {:?}", write_buffer);
+    println!("Writing to secrets .gitignore");
     gitignore.write_all(write_buffer.as_bytes()).expect("Unable to write to .gitignore");
 }
