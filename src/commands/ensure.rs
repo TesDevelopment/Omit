@@ -29,7 +29,14 @@ pub fn run_ensure() {
         }
 
         write_buffer.push_str("\n");
-        write_buffer.push_str(&linked_object.path.strip_prefix(to_strip.to_str().unwrap()).unwrap());
+
+        let mut fnl = linked_object.path;
+
+        if fnl.contains(&to_strip.to_str().unwrap().to_string()) {
+            fnl = fnl.strip_prefix(to_strip.to_str().unwrap()).unwrap().to_string();
+        }
+
+        write_buffer.push_str(fnl.as_str());
     }
 
     println!("Writing to secrets .gitignore");

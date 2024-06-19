@@ -4,3 +4,4 @@ pub mod ensure;
 pub mod init;
 pub mod pull;
 pub mod commit;
+pub mod desync;

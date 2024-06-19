@@ -35,6 +35,7 @@ fn main() {
             println!("omit version: Displays the version of omit installed");
 
             println!("omit init: Initalizes omit hooks if the directory is home to a repository");
+            println!("omit desync: Removes omit & its hooks");
             println!("omit key [key]: Generates a new key for the repository or implements the provided key");
 
             println!("omit <file_path>");
@@ -49,7 +50,7 @@ fn main() {
         },
 
         "version" => {
-            println!("Omit version 0.1.0");
+            println!("Omit version 0.2.0");
         },
 
         "ensure" => commands::ensure::run_ensure(),
@@ -59,6 +60,8 @@ fn main() {
         "commit" => commands::commit::run_commit(),
 
         "init" => commands::init::run_init(),
+
+        "desync" => commands::desync::run_desync(),
         
         _ => commands::default::run_default(subcommand),
     }

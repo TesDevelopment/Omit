@@ -1,5 +1,5 @@
 use std::{io::Error};
-use std::io;
+use std::{fs, io};
 
 use base64::{engine::general_purpose, Engine as _};
 use soft_aes::aes::{aes_dec_ecb, aes_enc_ecb};
@@ -21,6 +21,27 @@ pub fn get_key() -> Result<Vec<u8>, io::Error> {
             let encryption_key = general_purpose::STANDARD.decode(std::fs::read_to_string(dot_omit)?).unwrap();
 
             Ok(encryption_key)
+        }
+    }
+}
+
+pub fn get_key_base() -> Result<String, io::Error> {
+    let mut dot_omit = std::env::current_dir().unwrap();
+    dot_omit.push(".omit");
+
+    match dot_omit.try_exists() {
+        Err(_) => {
+            return Err(Error::new(std::io::ErrorKind::NotFound, "No key found, please run 'omit key' to generate a key"));
+        }
+
+        Ok(found) => {
+            if !found {
+                return Err(Error::new(std::io::ErrorKind::NotFound, "No key found, please run 'omit key' to generate a key"));
+            }
+
+            dot_omit.push(".omit_key");
+
+            Ok(fs::read_to_string(dot_omit)?)
         }
     }
 }
