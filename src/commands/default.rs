@@ -63,8 +63,8 @@ pub fn run_default(subcommand: &str) {
 
                     
                 },
-                Err(e) => {
-                    eprintln!("{}", e);
+                Err(_) => {
+                    eprintln!("Couldn't find key, run 'omit key [key]' to generate a key");
                 }
             
             }
