@@ -7,7 +7,7 @@ pub fn run_pull() {
     match crate::components::key::get_key() {
         Ok(encryption_key) => {
 
-            if(linker.key_check == "") {
+            if linker.key_check == "" {
                 eprintln!("Run 'omit key' before pulling secrets");
                 return;
             }

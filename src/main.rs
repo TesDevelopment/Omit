@@ -1,6 +1,4 @@
 use std::{env, fs, path::PathBuf};
-use components::linker::read_linker;
-use soft_aes::aes::{aes_enc_ecb, aes_dec_ecb};
 
 mod components;
 mod commands;

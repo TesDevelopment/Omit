@@ -61,10 +61,6 @@ pub fn read_linker() -> Result<LinkerPage, std::io::Error> {
     
 }
 
-pub fn read_linker_raw() -> String {
-    std::fs::read_to_string(".omit/linker.json").unwrap()
-}
-
 #[cfg(tests)]
 mod tests {
 

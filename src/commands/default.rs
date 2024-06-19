@@ -1,9 +1,9 @@
-use std::{env, fs, path::PathBuf};
+use std::{fs, path::PathBuf};
 
-use crate::components::{self, linker::{read_linker, write_linker, LinkedObject, LinkerPage}};
+use crate::components::{self, linker::{read_linker, write_linker, LinkerPage}};
 
 pub fn run_default(subcommand: &str) {
-    let mut path_buf = PathBuf::from(subcommand);
+    let path_buf = PathBuf::from(subcommand);
 
     match path_buf.try_exists() {
         Ok(exists) => {

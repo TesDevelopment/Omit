@@ -1,6 +1,6 @@
-use std::{fs::{read_to_string, OpenOptions}, io::{Read, Write}, path::PathBuf};
+use std::{fs::{read_to_string, OpenOptions}, io::Write, path::PathBuf};
 
-use crate::components::linker::{read_linker, read_linker_raw};
+use crate::components::linker::read_linker;
 
 pub fn run_ensure() {
     if !PathBuf::from(".gitignore").exists() {
