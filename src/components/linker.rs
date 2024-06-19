@@ -60,13 +60,3 @@ pub fn read_linker() -> Result<LinkerPage, std::io::Error> {
 
     
 }
-
-#[cfg(tests)]
-mod tests {
-
-    #[test]
-    pub fn test_read_linker() {
-        let linker = read_linker().unwrap();
-        assert_eq!(linker.linked_objects.len(), 1);
-    }
-}
