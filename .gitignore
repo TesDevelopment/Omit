@@ -1,2 +1,5 @@
 /target
 .omit/.omit_key
+/test.file
+/test2.file
+/securetest.txt

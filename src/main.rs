@@ -57,6 +57,8 @@ fn main() {
         "pull" => commands::pull::run_pull(),
 
         "commit" => commands::commit::run_commit(),
+
+        "init" => commands::init::run_init(),
         
         _ => commands::default::run_default(subcommand),
     }
