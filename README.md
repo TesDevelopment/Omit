@@ -1,5 +1,4 @@
-# Omit
-
+![Omit Logo](https://i.imgur.com/CqZ0XTI.png)
 ## Description
 
 Omit is a Rust-based project that allows you to securely share environment variables and secrets using a single key. It provides a convenient way to deploy and manage sensitive information while ensuring the safety of your data.
