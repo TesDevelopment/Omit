@@ -1,6 +1,6 @@
 [package]
 name = "omit"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 description = "Omit allows you to securely share environment variables and secrets using a single key."
 license = "MIT"
