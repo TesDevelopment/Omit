@@ -26,6 +26,9 @@ To use Omit, follow these steps:
 
 For more commands run `omit help`
 
+## Compatibility
+Unfortunately Omit is not currently compatible with non-linux systems, windows compatibility is a work in progress. If you'd like to implement more compatibility feel free to contribute to the project.
+
 ## Contributing
 
 Contributions to Omit are welcome! If you have any ideas, bug reports, or feature requests, please open an issue or submit a pull request on the [GitHub repository](https://github.com/TesDevelopment/Omit/).
